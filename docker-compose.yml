@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  operationservice:
+    image: ${DOCKER_REGISTRY-}operationservice
+    build:
+      context: .
+      dockerfile: OperationService/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+  operationdatabase:
+    image: postgres:latest
+    container_name: operationsdatabase
+    environment:
+      - POSTGRES_DB=operations
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - operations-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  userdatabase:
+      image: postgres:latest
+      container_name: userdatabase
+      environment:
+        - POSTGRES_DB=user
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      volumes:
+        - user-data:/var/lib/postgresql/data/
+      ports:
+        - "5433:5433"
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+
+volumes:
+  operations-data:
+  user-data:
