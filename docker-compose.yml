@@ -9,34 +9,44 @@ services:
     ports:
       - "5000:5000"
       - "5001:5001"
-  operationdatabase:
-    image: postgres:latest
-    container_name: operationsdatabase
-    environment:
-      - POSTGRES_DB=operations
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - operations-data:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
-  userdatabase:
-      image: postgres:latest
-      container_name: userdatabase
-      environment:
-        - POSTGRES_DB=user
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-      volumes:
-        - user-data:/var/lib/postgresql/data/
-      ports:
-        - "5433:5433"
+    depends_on:
+      - sql-server
+    networks:
+      - bank_network
   userservice:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
       dockerfile: UserService/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - sql-server
+    networks:
+      - bank_network
+  sql-server:
+    image: mcr.microsoft.com/azure-sql-edge
+    ports:
+      - 1433:1433
+    environment:
+      - MSSQL_SA_PASSWORD=P@assword4Secret!
+      - ACCEPT_EULA=Y
+    volumes:
+      - ./docker/volumes/azure-sql-edge/data:/var/opt/mssql/data
+      - ./docker/volumes/azure-sql-edge/log:/var/opt/mssql/log
+      - ./docker/volumes/azure-sql-edge/secrets:/var/opt/mssql/secrets
+    networks:
+      - bank_network
 
-volumes:
-  operations-data:
-  user-data:
+
+# volumes:
+#   operations-data:
+#   user-data:
+#   sql-data:
+
+networks:
+  bank_network:
+    name: bank_network
+    driver: bridge
+
