@@ -9,10 +9,10 @@ services:
     ports:
       - "5000:5000"
       - "5001:5001"
-    depends_on:
-      - sql-server
     networks:
-      - bank_network
+      bank-network:
+    depends_on:
+      - sqlserverdocker
   userservice:
     image: ${DOCKER_REGISTRY-}userservice
     build:
@@ -21,32 +21,20 @@ services:
     ports:
       - "8080:8080"
       - "8081:8081"
+    networks:
+      bank-network:
     depends_on:
-      - sql-server
-    networks:
-      - bank_network
-  sql-server:
-    image: mcr.microsoft.com/azure-sql-edge
+      - sqlserverdocker
+  sqlserverdocker:
+    container_name: sql-server-docker
+    image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
-      - 1433:1433
+      - "8100:1433"
     environment:
-      - MSSQL_SA_PASSWORD=P@assword4Secret!
       - ACCEPT_EULA=Y
-    volumes:
-      - ./docker/volumes/azure-sql-edge/data:/var/opt/mssql/data
-      - ./docker/volumes/azure-sql-edge/log:/var/opt/mssql/log
-      - ./docker/volumes/azure-sql-edge/secrets:/var/opt/mssql/secrets
+      - MSSQL_SA_PASSWORD=MyPassword*1234
     networks:
-      - bank_network
-
-
-# volumes:
-#   operations-data:
-#   user-data:
-#   sql-data:
+      - bank-network
 
 networks:
-  bank_network:
-    name: bank_network
-    driver: bridge
-
+  bank-network:
