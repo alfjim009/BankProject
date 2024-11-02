@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using OperationService.Models;
-
-namespace OperationService;
+﻿namespace OperationService;
 
 public class OperationServiceDbContext : DbContext
 {

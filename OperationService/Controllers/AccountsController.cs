@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OperationService.Services.Interfaces;
-using OperationService.ViewModels;
-using OperationService.ViewModels.Request;
-
-namespace OperationService.Controllers;
+﻿namespace OperationService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -17,7 +12,6 @@ public class AccountsController : ControllerBase
         _logger = logger;
         _accountService = accountService;
     }
-
 
     [HttpPost]
     [ProducesResponseType(200, Type = typeof(AccountViewModel))]

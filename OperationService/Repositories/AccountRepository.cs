@@ -1,9 +1,4 @@
-﻿using OperationService.Models;
-using OperationService.Repositories.Interfaces;
-using OperationService.ViewModels;
-using OperationService.ViewModels.Request;
-
-namespace OperationService.Repositories;
+﻿namespace OperationService.Repositories;
 
 public class AccountRepository : IAccountRepository
 {

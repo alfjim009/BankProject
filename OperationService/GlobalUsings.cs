@@ -1,0 +1,12 @@
+﻿global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
+global using Microsoft.EntityFrameworkCore.Storage;
+global using OperationService.Models;
+global using OperationService.Repositories;
+global using OperationService.Repositories.Interfaces;
+global using OperationService.Services;
+global using OperationService.Services.Interfaces;
+global using OperationService.ViewModels;
+global using OperationService.ViewModels.Request;
+global using System.ComponentModel.DataAnnotations;

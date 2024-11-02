@@ -6,8 +6,6 @@ WORKDIR /app
 EXPOSE 5000
 EXPOSE 5001
 
-#ENV DbContext="Server=sqlserverdocker;Database=OperationServiceDatabase;User ID=sa;Password=MyPassword*1234;TrustServerCertificate=True"
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src

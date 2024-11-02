@@ -1,9 +1,6 @@
-﻿using OperationService.ViewModels;
-using OperationService.ViewModels.Request;
-
-namespace OperationService.Repositories.Interfaces;
+﻿namespace OperationService.Repositories.Interfaces;
 
 public interface IAccountRepository
 {
-  Task<AccountViewModel> CreateAccountAsync(AccountRequest accountRequest);
+    Task<AccountViewModel> CreateAccountAsync(AccountRequest accountRequest);
 }

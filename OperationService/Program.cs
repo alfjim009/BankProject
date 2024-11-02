@@ -1,9 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using OperationService.Repositories;
-using OperationService.Repositories.Interfaces;
-using OperationService.Services;
-using OperationService.Services.Interfaces;
-
 namespace OperationService
 {
     public class Program
