@@ -18,9 +18,9 @@ public class AccountRepository : IAccountRepository
 
             var newAccount = new Accounts()
             {
-                AccountNumber = "asdasdsadsadasd8888",
+                AccountNumber = 184188,
                 AccountType = accountRequest.AccountType,
-                OpeningBalance = accountRequest.OpeningBalance,
+                Balance = accountRequest.OpeningBalance,
                 Status = true,
                 ClientId = accountRequest.ClientId
             };
@@ -33,7 +33,8 @@ public class AccountRepository : IAccountRepository
             accountViewModel.AccountNumber = newAccount.AccountNumber;
             accountViewModel.AccountType = newAccount.AccountType;
             accountViewModel.ClientId = newAccount.ClientId;
-            accountViewModel.OpeningBalance = newAccount.OpeningBalance;
+            accountViewModel.OpeningBalance = newAccount.Balance;
+            accountViewModel.Status = newAccount.Status;
 
             return accountViewModel;
         }

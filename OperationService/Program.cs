@@ -11,6 +11,9 @@ namespace OperationService
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
 
+            builder.Services.AddScoped<IOperationRepository, OperationRepository>();
+            builder.Services.AddScoped<IOperationService, Services.OperationService>();
+
 
             builder.Services.AddDbContext<OperationServiceDbContext>(
                 options => options

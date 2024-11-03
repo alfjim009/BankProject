@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace UserService
 {
     public class Program
@@ -10,6 +8,11 @@ namespace UserService
             var configuration = builder.Configuration;
 
             // Add services to the container.
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+            builder.Services.AddScoped<IClientService, ClientService>();
+
+            builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+            builder.Services.AddScoped<IPersonService, PersonService>();
 
             builder.Services.AddDbContext<UserServiceDbContext>(
                 options => options

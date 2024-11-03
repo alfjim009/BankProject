@@ -32,4 +32,5 @@ public class UserServiceDbContext : DbContext
         }
     }
     public DbSet<Clients> Clients { get; set; }
+    public DbSet<Persons> Persons { get; set; }
 }

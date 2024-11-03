@@ -11,7 +11,7 @@ using UserService;
 namespace UserService.Migrations
 {
     [DbContext(typeof(UserServiceDbContext))]
-    [Migration("20241102150358_InitialCreate")]
+    [Migration("20241102222533_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace UserService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("UserService.Models.Clients", b =>
+            modelBuilder.Entity("UserService.Models.Persons", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,8 +40,10 @@ namespace UserService.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -56,12 +58,28 @@ namespace UserService.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Phone")
+                    b.HasKey("Id");
+
+                    b.ToTable("Persons");
+
+                    b.HasDiscriminator().HasValue("Persons");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("UserService.Models.Clients", b =>
+                {
+                    b.HasBaseType("UserService.Models.Persons");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -69,9 +87,7 @@ namespace UserService.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Clients");
+                    b.HasDiscriminator().HasValue("Clients");
                 });
 #pragma warning restore 612, 618
         }
