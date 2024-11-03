@@ -24,7 +24,7 @@ public class ClientRepository : IClientRepository
                 Address = clientRequest.Address,
                 Phone = clientRequest.Phone,
                 Status = true,
-                Password = clientRequest.Password
+                Password = clientRequest.Password,
             };
 
             _dbContext.Clients.Add(newAccount);
